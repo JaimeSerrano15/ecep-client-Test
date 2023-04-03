@@ -156,7 +156,7 @@ const RegisterForm = (props: Register) => {
             id_hospital_nacimiento: values.hospital.value,
             id_municipio: values.municipality.value,
             persona_refiere: values.referred_by,
-            sexo: values.sex.value,
+            sexo: values.sex.label,
             telefono_contacto: values.phone,
         }, {
             onSuccess: () => {
@@ -206,7 +206,7 @@ const RegisterForm = (props: Register) => {
                 </div>
             ))
             }
-            <button type="submit"> Registrar </button>
+            <Button type="submit"> Registrar </Button>
         </form>
     )
 }
