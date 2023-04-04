@@ -12,6 +12,7 @@ interface Register {
     municipalities: any[],
     hospitals: any[],
     createPatience: any,
+    showModal: any,
 }
 
 interface FormProps {
@@ -52,7 +53,21 @@ const RegisterForm = (props: Register) => {
         phone: "",
     })
 
-    const { municipalities, hospitals, createPatience } = props;
+    const resetForm = () => setValues({
+        name: "",
+        last_names: "",
+        birthday: "",
+        register_date: "",
+        father: "",
+        mother: "",
+        hospital: { value: 0, label: "" },
+        municipality: { value: 0, label: "" },
+        referred_by: "",
+        sex: { value: 0, label: "" },
+        phone: "",
+    });
+
+    const { municipalities, hospitals, createPatience, showModal } = props;
 
     // inputs info
     const inputs: InputProps[] = [
@@ -144,7 +159,6 @@ const RegisterForm = (props: Register) => {
     console.log({ values });
 
     const handleSubmitForm = (e: any) => {
-        console.log("Running submit")
         e.preventDefault();
         createPatience.mutate({
             nombre_paciente: values.name,
@@ -160,7 +174,19 @@ const RegisterForm = (props: Register) => {
             telefono_contacto: values.phone,
         }, {
             onSuccess: () => {
-                console.log('Se ha creado con éxito')
+                console.log('Se ha creado con éxito');
+                showModal({
+                    show: true,
+                    status: 'success',
+                });
+                resetForm()
+            },
+            onError: () => {
+                console.log("Something went wrong");
+                showModal({
+                    show: true,
+                    status: 'error',
+                });
             }
         })
     }    
@@ -171,7 +197,7 @@ const RegisterForm = (props: Register) => {
 
     return (
         <form
-            className="w-1/4 md:w-1/2 lg:w-1/3 my-6 border-1 shadow-xl rounded-xl p-8 bg-blue-100"
+            className="w-1/4 md:w-1/2 lg:w-1/3 my-6 border-1 shadow-xl rounded-2xl p-8 bg-white"
             onSubmit={handleSubmitForm}
         >
             {
@@ -188,6 +214,7 @@ const RegisterForm = (props: Register) => {
                     <Select 
                         options={input.options}
                         name={input.name}
+                        value={values.name}
                         styles={{
                             control: (baseStyles, state) => ({
                             ...baseStyles,
@@ -206,7 +233,7 @@ const RegisterForm = (props: Register) => {
                 </div>
             ))
             }
-            <Button type="submit"> Registrar </Button>
+            <Button type="submit" className="mt-4"> Registrar </Button>
         </form>
     )
 }
