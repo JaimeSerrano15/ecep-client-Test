@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import Input from '../Common/Input';
 import Button from '../Common/Button';
+import PhoneInput from '../Common/PhoneInput';
 
 type SelectType = {
     value: number,
@@ -52,6 +53,25 @@ const RegisterForm = (props: Register) => {
         sex: { value: 0, label: "" },
         phone: "",
     })
+    const [valid, setValid] = useState<boolean>(false);
+
+    // const isFormValid = () => {
+        
+    // }
+
+    console.log({ valid });
+
+    useEffect(() => {
+        for (const [key, value]  of Object.entries(values)) {
+            console.log({ key, value });
+            if ( value === '' || value.label === '') {
+                console.log("Es false");
+                setValid(false);
+                return;
+            }
+        }
+        setValid(true);
+    }, [values]);
 
     const resetForm = () => setValues({
         name: "",
@@ -201,7 +221,15 @@ const RegisterForm = (props: Register) => {
             onSubmit={handleSubmitForm}
         >
             {
-            inputs.map((input) => input.type !== 'select' ? (
+            inputs.map((input) => input.type !== 'select' ? 
+            input.name === 'phone' ? (
+                <PhoneInput 
+                    key={input.id}
+                    {...input}
+                    value={values[input.name]}
+                    onChange={onChange}
+                />
+            ) : (
                 <Input 
                     key={input.id}
                     {...input}
@@ -214,7 +242,7 @@ const RegisterForm = (props: Register) => {
                     <Select 
                         options={input.options}
                         name={input.name}
-                        value={values.name}
+                        value={values[input.name]}
                         styles={{
                             control: (baseStyles, state) => ({
                             ...baseStyles,
@@ -233,7 +261,7 @@ const RegisterForm = (props: Register) => {
                 </div>
             ))
             }
-            <Button type="submit" className="mt-4"> Registrar </Button>
+            <Button type="submit" className={`mt-4 ${valid ? 'bg-green-400' : 'bg-green-200 bg-opacity-30'}`} disabled={!valid}> Registrar </Button>
         </form>
     )
 }
