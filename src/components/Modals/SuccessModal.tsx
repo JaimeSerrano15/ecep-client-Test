@@ -10,9 +10,10 @@ const SuccessModal = (props: ModalProps) => {
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <h3 className="text-lg font-bold leading-6 text-green-900" id="modal-title">Registro Completado!</h3>
+                    <h3 className="text-lg font-bold leading-6 text-green-900" id="modal-title">Registro!</h3>
                     <div className="mt-2">
                         <p className="text-sm text-gray-500">Se ha registrado al paciente correctamente.</p>
+                        <p className="text-sm text-gray-500">Esto es un nuevo cambio.</p>
                     </div>
                     </div>
                 </div>
