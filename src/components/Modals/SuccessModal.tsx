@@ -14,7 +14,7 @@ const SuccessModal = (props: ModalProps) => {
                     <div className="mt-2">
                         <p className="text-sm text-gray-500">Se ha registrado al paciente correctamente.</p>
                         <p className="text-sm text-gray-500">Esto es un nuevo cambio.</p>
-                        <p className="text-sm text-gray-500">Esto es otro otro cambio.</p>
+                        <p className="text-sm text-gray-500">Esto es otro cambio.</p>
                     </div>
                     </div>
                 </div>
